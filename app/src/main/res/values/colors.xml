@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yelow">#F3C623</color>
+    <color name="card">#A5B68D</color>
+    <color name="fourth">#243642</color>
+    <color name="third">#387478</color>
+    <color name="second">#629584</color>
+    <color name="first">#E2F1E7</color>
+
 </resources>
