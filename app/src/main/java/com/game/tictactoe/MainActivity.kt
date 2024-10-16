@@ -1,12 +1,10 @@
 package com.game.tictactoe
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,8 +20,9 @@ class MainActivity : AppCompatActivity() {
         R.id.btn_7,
         R.id.btn_8
     )
-
+    private val tie = 0;
     private var value = true
+    var play = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val btn = findViewById<TextView>(arrayOfbtnId[index])
         btn.setOnClickListener {
 
-            if (btn.text.isEmpty()) {
+            if (btn.text.isEmpty() && play) {
                 if (value) {
                     btn.text = "X"
                     value = false
@@ -49,25 +48,38 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            checkWinner(arrayOfbtnId[0], arrayOfbtnId[1], arrayOfbtnId[2])
-            checkWinner(arrayOfbtnId[3], arrayOfbtnId[4], arrayOfbtnId[5])
-            checkWinner(arrayOfbtnId[6], arrayOfbtnId[7], arrayOfbtnId[8])
-            checkWinner(arrayOfbtnId[0], arrayOfbtnId[3], arrayOfbtnId[6])
-            checkWinner(arrayOfbtnId[1], arrayOfbtnId[4], arrayOfbtnId[7])
-            checkWinner(arrayOfbtnId[2], arrayOfbtnId[5], arrayOfbtnId[8])
-            checkWinner(arrayOfbtnId[0], arrayOfbtnId[4], arrayOfbtnId[8])
-            checkWinner(arrayOfbtnId[2], arrayOfbtnId[4], arrayOfbtnId[6])
+            checkWinner(0, 1, 2)
+            checkWinner(3, 4, 5)
+            checkWinner(6, 7, 8)
+            checkWinner(0, 3, 6)
+            checkWinner(1, 4, 7)
+            checkWinner(2, 5, 8)
+            checkWinner(0, 4, 8)
+            checkWinner(2, 4, 6)
 
 
         }
     }
 
+    @SuppressLint("CutPasteId", "SetTextI18n")
     fun checkWinner(i1: Int, i2: Int, i3: Int) {
 
-        val b1 = findViewById<TextView>(arrayOfbtnId[i1]).text
-        val b2 = findViewById<TextView>(arrayOfbtnId[i2]).text
-        val b3 = findViewById<TextView>(arrayOfbtnId[i3]).text
+        val b1 = findViewById<TextView>(arrayOfbtnId[i1])
+        val b2 = findViewById<TextView>(arrayOfbtnId[i2])
+        val b3 = findViewById<TextView>(arrayOfbtnId[i3])
 
+        if (b1.text.equals(b2.text) && b1.text.equals(b3.text) && !b1.text.equals("") && play) {
+
+            play = false
+            if (b1.text.equals("X")) {
+                val player_x = findViewById<TextView>(R.id.player_x).text.toString().toInt()
+                findViewById<TextView>(R.id.player_x).text = "${player_x + 1}"
+            } else {
+                val player_0 = findViewById<TextView>(R.id.player_0).text.toString().toInt()
+                findViewById<TextView>(R.id.player_0).text = "${player_0 + 1}"
+            }
+            b1.setBackgroundColor(Color.parseColor("#E2F1E7"))
+        }
 
     }
 
